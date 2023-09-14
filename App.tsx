@@ -14,12 +14,13 @@ import {
 } from 'react-native';
 import Toast from 'react-native-toast-message';
 import Home from './src/Container/AppContainer/Home/Home';
+import Routes from './src/Navigations/Routes';
 
 function App(): JSX.Element {
   return (
     <View style={styles.container}>
-        <Home />
       <Toast />
+      <Routes />
     </View>
   );
 }

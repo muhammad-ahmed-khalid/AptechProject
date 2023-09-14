@@ -1,12 +1,15 @@
 import { StyleSheet, Text, View,Image } from 'react-native'
 import React from 'react'
 import CustomLottieComponent from '../../../Components/CustomLottieComponent/CustomLottieComponent'
-const Home = () => {
+import NavigationStrings from '../../../constants/NavigationStrings'
+const Home = ({navigation}) => {
   const handlePressAddEvent = () => {
-    console.log("Add Event")
+    console.log("Add Event");
+    navigation.navigate(NavigationStrings.ADD_EVENTS)
   }
   const handlePressViewEvents = () => {
     console.log("handlePress View Event")
+    navigation.navigate(NavigationStrings.VIEW_EVENTS)
   }
   return (
     <View style={styles.root}>
