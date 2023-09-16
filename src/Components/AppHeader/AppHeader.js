@@ -2,7 +2,6 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 const AppHeader = (props) => {
-    console.log(props, "AOO")
     const { options } = props || {}
     const {title} = options || {}
   return (
