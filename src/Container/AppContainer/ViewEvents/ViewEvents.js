@@ -4,7 +4,7 @@ import {useQuery} from '@tanstack/react-query';
 import {STORAGE_KEYS} from '../../../constants/queryKeys';
 import {getAllEvents} from '../../../APIServices/App';
 import CustomModal from '../../../Components/CustomModal/CustomModal';
-import {DeleteIcon} from '../../../assets/images';
+import {DeleteIcon, EditIcon, PopMenuIcon, ViewIcon} from '../../../assets/images';
 import {innerContainer, triggerStyles} from '../../../constants/common';
 
 import {
@@ -70,37 +70,28 @@ const ViewEvents = ({navigation}) => {
         <Text style={styles.eventName}>Event Name: {item?.name}</Text>
         <View style={styles.actionBtnWrapper}>
           <TouchableOpacity onPress={() => handlePressModal(item)}>
-            {/* <DeleteIcon /> */}
-            <Text>View</Text>
+            <ViewIcon />
           </TouchableOpacity>
           <View style={styles.cheronWrapper}>
             <Menu>
               <MenuTrigger customStyles={triggerStyles}>
-                {/* <PopMenuIcon /> */}
-                <Text>Click</Text>
+                <PopMenuIcon />
               </MenuTrigger>
               <MenuOptions customStyles={innerContainer}>
                 <MenuOption onSelect={() => handlePressEdit(item)}>
                   <View style={styles.menuInnerWrapper}>
                     <View style={styles.menuIconInnerWrapper}>
-                      {/* <EditIcon /> */}
-                      <Text>Edit</Text>
+                      <EditIcon />
                     </View>
                     <Text>Edit</Text>
-                    {/* <H6 style={styles.menuFont} text={'Edit'} /> */}
                   </View>
-                </MenuOption>
-                <MenuOption>
-                  <View style={styles.menuSeperator} />
                 </MenuOption>
                 <MenuOption onSelect={() => handlePressDelete(item?.PK_ID)}>
                   <View style={styles.menuInnerWrapper}>
                     <View style={styles.menuIconInnerWrapper}>
-                      {/* <DeleteIcon /> */}
-                      <Text>Dele</Text>
+                      <DeleteIcon />
                     </View>
                     <Text>DELTED</Text>
-                    {/* <H6 style={styles.menuFont} text={'Remove'} /> */}
                   </View>
                 </MenuOption>
               </MenuOptions>
@@ -127,7 +118,7 @@ const ViewEvents = ({navigation}) => {
       {getAllEventsDataLoading ? (
         <Text>Loading</Text>
       ) : (
-        <FlatList data={getAllEventsData?.data} renderItem={renderItem} />
+        <FlatList data={getAllEventsData?.data} renderItem={renderItem} showsVerticalScrollIndicator={false}/>
       )}
       <CustomModal
         changeDeleteModalVisible={changeDeleteModalVisible}
@@ -171,4 +162,14 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: '#000',
   },
+  menuInnerWrapper: {
+    width: '100%',
+    flexDirection: 'row',
+    textAlign: 'left',
+  },
+  menuIconInnerWrapper: {width: 30},
+  actionBtnWrapper:{
+    flexDirection: 'row',
+    alignItems: 'center'
+  }
 });

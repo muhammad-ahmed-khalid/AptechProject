@@ -33,7 +33,7 @@ export const innerContainer = {
       flex: 1,
     },
     triggerWrapper: {
-      paddingVertical: 20,
+      paddingVertical: 5,
       justifyContent: 'center',
       color: 'red',
       flexDirection: 'row',
