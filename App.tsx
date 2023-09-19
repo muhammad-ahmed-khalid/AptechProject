@@ -14,18 +14,21 @@ import Toast from 'react-native-toast-message';
 import Routes from './src/Navigations/Routes';
 import ApiClientProvider from './src/APIServices/apiServices';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {MenuProvider} from 'react-native-popup-menu';
 
 function App(): JSX.Element {
   const queryClient = new QueryClient()
   return (
     // <ApiClientProvider>
     <QueryClientProvider client={queryClient}>
+            <MenuProvider>
     <View style={styles.container}>
 
           <Toast />
       <Routes />
 
     </View>
+    </MenuProvider>
     </QueryClientProvider>
     // </ApiClientProvider>
   );

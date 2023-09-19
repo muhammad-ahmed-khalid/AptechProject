@@ -43,10 +43,10 @@ const CustomModal = ({
       <View style={styles.modal}>
         <View style={styles.container}>
           <Text style={styles.title}>{title}</Text>
-          {isShowDesc && 
+          {/* {isShowDesc && 
            <Text style={styles.confirmText}>{desc}</Text>
-           }
-          <View style={styles.buttonView}>
+           } */}
+          {/* <View style={styles.buttonView}>
             <TouchableOpacity
               style={styles.btnWrapper}
               activeOpacity={isNetConnection ? 0.7 : 0.4}
@@ -62,7 +62,7 @@ const CustomModal = ({
                 <Text style={styles.text}>no</Text>
               </TouchableOpacity>
             )}
-          </View>
+          </View> */}
           {children}
         </View>
       </View>
@@ -73,10 +73,10 @@ const CustomModal = ({
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    alignItems: 'center',
+    // alignItems: 'center',
   },
   modal: {
-    paddingTop: 25,
+    paddingTop: 15,
     paddingBottom: 25,
     paddingHorizontal: 18,
     // backgroundColor: Colors.WHITE,
@@ -107,14 +107,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    // ...Fonts.SemiBold(Fonts.Size.medium, Colors.DARK_BLACK),
     marginBottom: 15,
     textAlign: 'center',
+    fontSize: 20,
+    color: "#000",
+    textTransform: 'uppercase'
   },
   confirmText: {
     textAlign: 'center',
     marginBottom: 20,
-    // ...Fonts.SemiBold(Fonts.Size.normal, Colors.DARK_BLACK),
   },
 });
 

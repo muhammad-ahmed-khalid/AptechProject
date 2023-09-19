@@ -12,5 +12,6 @@ export default{
     //
     HOME: "Home",
     ADD_EVENTS: "AddEvents",
-    VIEW_EVENTS: "ViewEvents"
+    VIEW_EVENTS: "ViewEvents",
+    EVENT_CRUD : "EVENT_CRUD"
 }
