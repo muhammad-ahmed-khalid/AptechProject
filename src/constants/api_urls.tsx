@@ -35,7 +35,8 @@ export const SERVICE_CONFIG_URLS = {
     GET_DASHBOARD_LINK: `${driver}/personal/dashboard-link`,
     UPDATE_INCOMING_REQUEST:  `${driver}/personal/update-allow-incoming-requests`,
     UPDATE_BANKING_INFO:  `${driver}/personal/create-connected-account`,
-    GET_ALL_EVENTS: `${common}?List=true`
+    GET_ALL_EVENTS: `${common}?List=true`,
+    CREATE_EVENT: `${common}`,
   },
   BOOKING: {
     RIDE_FLOW: `${driver}/booking/`,

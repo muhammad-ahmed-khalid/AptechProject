@@ -5,8 +5,8 @@ export { default as ViewEvents} from './AppContainer/ViewEvents/ViewEvents'
 export { default as EventCrud} from './AppContainer/EventCrud/EventCrud'
 
 
-//AuthScreen
-// export { default as TermsConditions} from './TermsConditions/TermsConditions'
+// AuthScreen
+export { default as Login} from './AuthContainer/Login/Login'
 // export { default as PhoneNumber} from './PhoneNumber/PhoneNumber'
 // export { default as OTPVerification} from './OTPVerification/OTPVerification'
 // export { default as EditProfile} from './EditProfile/EditProfile'

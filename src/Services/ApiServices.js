@@ -77,10 +77,11 @@ function handleResponse(response: ApiResponse<any>) {
 }
 
 apiSauceInstance.addRequestTransform(request => {
-//   const token = getItem(STORAGE_KEYS.TOKEN);
-//   if (token) {
-//     request.headers.AUTHORIZATION = `Bearer ${token}`;
-//   }
+  // const token = getItem(STORAGE_KEYS.TOKEN);
+  const token = "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";
+  if (token) {
+    request.headers.AUTHORIZATION = `Bearer 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`;
+  }
 //   request.headers.tenant = 'root';
 });
 

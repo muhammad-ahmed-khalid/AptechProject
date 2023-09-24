@@ -15,4 +15,15 @@ export const getAllEvents = async (params: any) => {
     });
     return data;
   };
+
+export const createEvent = async (params: any) => {
+    const {data} = await apiRequest({
+      url: SERVICE_CONFIG_URLS.DRIVER.CREATE_EVENT,
+      method: API_CONFIG.POST,
+      params,
+      formData: true,
+      showLoader: false,
+    });
+    return data;
+  };
   
