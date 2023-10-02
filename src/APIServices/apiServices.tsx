@@ -16,6 +16,7 @@ import {
 } from '@tanstack/react-query-persist-client';
 import { STORAGE_KEYS } from '../constants/queryKeys';
 import { getItem , removeItem, setItem} from '../Services/storageServices';
+import { queryClient } from '../constants/common';
 // import {STORAGE_KEYS} from '@Constants/queryKeys';
 
 function onAppStateChange(status: AppStateStatus) {
@@ -24,25 +25,25 @@ function onAppStateChange(status: AppStateStatus) {
   }
 }
 
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: STALE_TIME,
-      cacheTime: CACHE_TIME,
-      getNextPageParam: (lastPage: any) => {
-        return lastPage?.meta?.hasNextPage;
-      },
-      onError: e => {
-        console.log('api error ', e?.message.validationErrors);
-      },
-    },
-    mutations: {
-      onError: e => {
-        console.log('api mutation error ', e?.message.validationErrors);
-      },
-    },
-  },
-});
+// export const queryClient = new QueryClient({
+//   defaultOptions: {
+//     queries: {
+//       staleTime: STALE_TIME,
+//       cacheTime: CACHE_TIME,
+//       getNextPageParam: (lastPage: any) => {
+//         return lastPage?.meta?.hasNextPage;
+//       },
+//       onError: e => {
+//         console.log('api error ', e?.message.validationErrors);
+//       },
+//     },
+//     mutations: {
+//       onError: e => {
+//         console.log('api mutation error ', e?.message.validationErrors);
+//       },
+//     },
+//   },
+// });
 
 export default function ApiClientProvider(props: React.PropsWithChildren) {
   const {children} = props;

@@ -54,6 +54,7 @@ export const innerContainer = {
 
   //
   import {Colors} from '../themes';
+import { QueryClient } from '@tanstack/react-query';
 
 export const AuthTitle = {
   LOGIN_TITLE: 'Login',
@@ -249,3 +250,27 @@ export const CategoryData = {
 };
 
 export const DUMMY_LIST_FOR_SKELETON = [0, 0, 0];
+
+export const STALE_TIME = 60 * 1000;
+
+export const CACHE_TIME = 1000 * 60 * 60 * 24;
+
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: STALE_TIME,
+      cacheTime: CACHE_TIME,
+      getNextPageParam: (lastPage: any) => {
+        return lastPage?.meta?.hasNextPage;
+      },
+      onError: e => {
+        console.log('api error ', e?.message.validationErrors);
+      },
+    },
+    mutations: {
+      onError: e => {
+        console.log('api mutation error ', e?.message.validationErrors);
+      },
+    },
+  },
+});

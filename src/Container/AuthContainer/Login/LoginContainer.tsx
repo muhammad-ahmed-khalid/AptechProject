@@ -16,6 +16,7 @@ import {useForm} from 'react-hook-form';
 // import {navigate} from '../../../services/navigationService';
 import {LoginFormType, LoginPayload, LoginResponse} from './types';
 import { LoginDefaultValues } from '../../../constants/FormDefaultValues';
+import { login } from '../../../APIServices/App';
 
 export default function useLoginContainer() {
 //   const {setUserAuthentication} = useContext(loginContext) as LoginContext;
@@ -30,6 +31,15 @@ export default function useLoginContainer() {
 //       }
 //     },
 //   });
+const {mutate: logintMutation} = useMutation(login, {
+  onSuccess: (data) => {
+    console.log(data, "LOGINNN")
+  },
+  onError: (data) => {
+    console.log(data.message.validationErrors, 'errrrrrrrrrr ');
+  },
+});
+
 
 //   const handleOnSignUp = useCallback(() => {
 //     navigate(NavigationRoutes.AUTH_STACK.SIGN_UP);
@@ -57,15 +67,21 @@ export default function useLoginContainer() {
     const {email, password} = data;
     // let fcm = await getDevicePayload();
 
-    const payload: LoginPayload = {
-      email,
-      password,
+    // const payload: LoginPayload = {
+    //   email,
+    //   password,
     //   device_id: getDeviceId(),
     //   device_name: getDeviceName(),
     //   fcm_token: fcm?.deviceId || 1,
-    };
-    console.log(payload, "payloadpayload")
+    // };
+    // console.log(payload, "payloadpayload")
     // loginUser(payload);
+    let formdata = new FormData();
+    formdata.append('email', email);
+    formdata.append('password', password);
+    formdata.append('SignIn', true);
+
+    logintMutation(formdata)
   };
   return {
     control,

@@ -1,11 +1,11 @@
 import {FlatList, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
-import {useQuery} from '@tanstack/react-query';
+import {useMutation, useQuery} from '@tanstack/react-query';
 import {STORAGE_KEYS} from '../../../constants/queryKeys';
-import {getAllEvents} from '../../../APIServices/App';
+import {deleteEvent, getAllEvents} from '../../../APIServices/App';
 import CustomModal from '../../../Components/CustomModal/CustomModal';
 import {DeleteIcon, EditIcon, PopMenuIcon, ViewIcon} from '../../../assets/images';
-import {innerContainer, triggerStyles} from '../../../constants/common';
+import {innerContainer, queryClient, triggerStyles} from '../../../constants/common';
 
 import {
   Menu,
@@ -24,8 +24,20 @@ const ViewEvents = ({navigation}) => {
         // console.log(data, "On Success Data")
       },
       enabled: true,
+      cacheTime: 0,
     },
   );
+  
+  const {mutate: deleteEventMutation} = useMutation(deleteEvent, {
+    onSuccess: (data) => {
+      console.log(data, "EVENT DELETED")
+      queryClient.invalidateQueries([STORAGE_KEYS.GET_ALL_EVENTS]);
+    },
+    onError: (data) => {
+      console.log(data.message.validationErrors, 'errrrrrrrrrr ');
+    },
+  });
+
 
   const [modalData, setModalData] = React.useState({});
   const handlePressModal = item => {
@@ -38,6 +50,11 @@ const ViewEvents = ({navigation}) => {
   };
   const handlePressDelete = ID => {
     console.log(ID, 'DELTE');
+    let formdata = new FormData();
+    formdata.append('Delete', true);
+    formdata.append('id', ID);
+    formdata.append('token', 1);
+    deleteEventMutation(formdata)
   };
 
   const GetEventData = () => {

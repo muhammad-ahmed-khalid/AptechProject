@@ -2,7 +2,11 @@ import React from 'react';
 import {Text, View, TextInput, Button, Alert, StyleSheet, TouchableOpacity} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {useMutation} from '@tanstack/react-query';
-import {createEvent} from '../../../APIServices/App';
+import {createEvent, updateEvent} from '../../../APIServices/App';
+import NavigationStrings from '../../../constants/NavigationStrings';
+import { useNavigation } from '@react-navigation/native';
+import { queryClient } from '../../../constants/common';
+import { STORAGE_KEYS } from '../../../constants/queryKeys';
 
 const AddEvents = props => {
   const {route} = props || {};
@@ -10,11 +14,15 @@ const AddEvents = props => {
   const {EventData} = params || {};
   console.log(EventData, 'Edit Event Data');
 
-  const {mutate: createEventMutation} = useMutation(createEvent, {
-    onSuccess: (data: any) => {
-      console.log(data, 'EVENT CREATED');
+   // Get the navigation object using the useNavigation hook
+   const navigation = useNavigation();
+
+  const {mutate: updateEventEventMutation} = useMutation(updateEvent, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries([STORAGE_KEYS.GET_ALL_EVENTS])
+      navigation.navigate(NavigationStrings.VIEW_EVENTS);
     },
-    onError: (data: any) => {
+    onError: (data) => {
       console.log(data.message.validationErrors, 'errrrrrrrrrr ');
     },
   });
@@ -31,45 +39,32 @@ const AddEvents = props => {
       participants: EventData?.participants || ``,
     },
   });
+ 
   const onSubmit = async data => {
-    console.log(data, 'DATA CONSOLE');
-    const {name, startDate, endDate, participants} = data;
+    const { name, startDate, endDate, participants } = data;
     let formdata = new FormData();
     formdata.append('name', name);
     formdata.append('startDate', startDate);
     formdata.append('endDate', endDate);
     formdata.append('participants', participants);
-    formdata.append('Create', 'true');
+    if(EventData) {
+      formdata.append('Edit', 'true');
+      formdata.append('userId', EventData?.userId);
+      formdata.append('id', EventData?.PK_ID);
+      
+    } else{
+      formdata.append('Create', 'true');
+    } 
+    formdata.append('token', 1);
     console.log(formdata, 'Final Form Data');
-
-    // createEventMutation(formdata)
     if (EventData == null || EventData == undefined) {
-      try {
-        const response = await fetch(
-          'https://ahmed-khalid.com/controllers/event',
-          {
-            method: 'POST',
-            body: formdata,
-            headers: {
-              Authorization: 'Bearer sk-asd',
-            },
-          },
-        );
-        const responseBody = await response.text(); // Read the response body once
-
-        console.log('Response:', responseBody);
-
-        if (response.ok) {
-          const data = await response.json();
-          setResponseMessage(data.message);
-        } else {
-          throw new Error('Request failed');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      }
+      createEventMutation(formdata)   
     }
-  };
+    else{
+      updateEventEventMutation(formdata)
+    }
+}
+
 
   return (
     <View style={styles.container}>

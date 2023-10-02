@@ -27,8 +27,17 @@ export async function apiRequest({
 }: TRequestProps) {
 //   showLoader && _showSpinner();
   
+console.log('API Request:', {
+  url,
+  method,
+  params,
+  config,
+  formData,
+}); // Log the complete payload
+
   const response =
     (await ApiServices[method]?.(url, params, config, formData)) || {};
+    console.log(response, "responseresponseresponse")
 //   setTimeout(_hideSpinner, 100);
   if (response.ok) {
     if (showSuccessToast) {

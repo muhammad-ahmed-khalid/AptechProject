@@ -10,7 +10,7 @@ import { API_CONFIG, CONTENT_TYPE, HTTP_STATUS } from '../constants/api';
 export const BASE_URL = API_CONFIG.BASE_URL_DEV;
 
 const apiSauceInstance = create({
-  baseURL: BASE_URL,
+  // baseURL: BASE_URL,
   headers: {
     'Content-Type': CONTENT_TYPE.JSON,
   },
@@ -21,7 +21,8 @@ async function get(url: string, queryParams?: {}, config?: {}) {
   return handleResponse(response);
 }
 
-async function post(url: string, data: object, config?: ApisauceConfig) {
+async function post(url: string, data: object, config?: ApisauceConfig, formData) {
+  console.log(url, "urlurlurl")
   const response = await apiSauceInstance.post(url, data, config);
   return handleResponse(response);
 }
@@ -78,10 +79,10 @@ function handleResponse(response: ApiResponse<any>) {
 
 apiSauceInstance.addRequestTransform(request => {
   // const token = getItem(STORAGE_KEYS.TOKEN);
-  const token = "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";
-  if (token) {
+  // const token = "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";
+  // if (token) {
     request.headers.AUTHORIZATION = `Bearer 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`;
-  }
+  // }
 //   request.headers.tenant = 'root';
 });
 

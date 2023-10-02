@@ -21,9 +21,62 @@ export const createEvent = async (params: any) => {
       url: SERVICE_CONFIG_URLS.DRIVER.CREATE_EVENT,
       method: API_CONFIG.POST,
       params,
+      config: {
+        headers: {
+          'Content-Type': "multipart/form-data",
+        },
+      },
+      formData: true,
+      showLoader: false,
+    });
+    return data;
+  };
+
+  export const updateEvent = async (params: any) => {
+    const {data} = await apiRequest({
+      url: SERVICE_CONFIG_URLS.DRIVER.CREATE_EVENT,
+      method: API_CONFIG.POST,
+      params,
+      config: {
+        headers: {
+          'Content-Type': "multipart/form-data",
+        },
+      },
       formData: true,
       showLoader: false,
     });
     return data;
   };
   
+  export const deleteEvent = async (params: any) => {
+    console.log(params, "paramsparamsparams")
+    const {data} = await apiRequest({
+      url: SERVICE_CONFIG_URLS.DRIVER.CREATE_EVENT,
+      method: API_CONFIG.POST,
+      params,
+      config: {
+        headers: {
+          'Content-Type': "multipart/form-data",
+        },
+      },
+      formData: true,
+      showLoader: false,
+    });
+    return data;
+  };
+  export const login = async (params: any) => {
+    console.log(params, "paramsparamsparams")
+    const {data} = await apiRequest({
+      url: "https://ahmed-khalid.com/controllers/auth",
+      method: API_CONFIG.POST,
+      params,
+      config: {
+        headers: {
+          'Content-Type': "multipart/form-data",
+        },
+      },
+      formData: true,
+      showLoader: false,
+    });
+    return data;
+  };
