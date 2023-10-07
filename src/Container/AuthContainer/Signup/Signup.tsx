@@ -9,31 +9,28 @@ import {
 } from '../../../constants/common';
 // import AuthBottomHandler from '../Shared/AuthBottomHandler';
 // import AuthRouting from '../Shared/AuthRouting';
-import useLoginContainer from './LoginContainer';
+// import useLoginContainer from './LoginContainer';
 import AuthAnimatedSheetWrapper from '../../../Components/AuthSheetWrapper/AuthAnimatedSheetWrapper';
 import InputField from '../../../Components/InputField';
 import AuthBottomHandler from '../Shared/AuthBottomHandler';
 import AuthRouting from '../Shared/AuthRouting';
-import { useNavigation } from '@react-navigation/native';
-import NavigationStrings from '../../../constants/NavigationStrings';
-export default function LoginScreen() {
+import useSignupContainer from './SignupContainer';
+export default function SignupScreen() {
 //   const {control, handleSubmit, handleOnSignUp, handleForgot} =
 //     useLoginContainer();
-const {control, handleSubmit} = useLoginContainer();
-const navigation = useNavigation();
-const handleOnSignUp = () => {
-  navigation.navigate(NavigationStrings.SIGNUP)
-}
+const {control, handleSubmit} = useSignupContainer();
+
   return (
-    <AuthAnimatedSheetWrapper>
+    <AuthAnimatedSheetWrapper authHeadingTitle='Signup' authHeadingSubTitle='Please create your account'>
       <View style={styles.container}>
         <View style={styles.innerContainer}>
           <View style={styles.inputContainer}>
+       
             <InputField
               control={control}
-              name="email"
-              label={AllLabels.EMAIL}
-              placeholder={Placeholder.EMAIL_PLACEHOLDER}
+              name="name"
+              label={AllLabels.NAME}
+              placeholder={Placeholder.NAME_PLACEHOLDER}
               autoCapitalize={'none'}
             />
             <InputField
@@ -43,14 +40,15 @@ const handleOnSignUp = () => {
               isPassword={true}
               placeholder={Placeholder.PASSWORD_PLACEHOLDER}
             />
-          </View>
-          <View style={styles.forgotText}>
-            <AuthRouting
-              forgotText={ButtonText.FORGOT_PASSWORD_BUTTON}
-              onPress={() => console.log("Aoo")}
-            //   onPress={handleForgot}
+                 <InputField
+              control={control}
+              name="email"
+              label={AllLabels.EMAIL}
+              placeholder={Placeholder.EMAIL_PLACEHOLDER}
+              autoCapitalize={'none'}
             />
           </View>
+       
         </View>
         <View
           style={[
@@ -59,11 +57,8 @@ const handleOnSignUp = () => {
           ]}>
           <AuthBottomHandler
             submitHandler={handleSubmit}
-            // handleSigin={handleOnSignUp}
-            submitBtnText={ButtonText.LOGIN_BUTTON}
-            handleSigin={handleOnSignUp}
-            bottomText={ButtonText.SIGN_UP}
-            bottomExtraText={ButtonText.DONT_HAVE_ACCOUNT}
+            submitBtnText={ButtonText.SIGN_UP}
+            // bottomText={ButtonText.SIGN_UP}
             disabledSubmit={ConditionText.FALSE_TEXT}
             style={styles.authBottomStyle}
           />

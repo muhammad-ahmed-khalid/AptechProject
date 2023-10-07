@@ -20,7 +20,7 @@ import { login } from '../../../APIServices/App';
 import { setItem } from '../../../Services/storageServices';
 import { useAuth } from '../../../Services/AuthContext';
 
-export default function useLoginContainer() {
+export default function useSignupContainer() {
   const { setIsAuthenticated } = useAuth();
 //   const {setUserAuthentication} = useContext(loginContext) as LoginContext;
 
@@ -39,31 +39,18 @@ const stackChange = async(data) => {
 }
 const {mutate: logintMutation} = useMutation(login, {
   onSuccess: (data) => {
-    console.log(data, "LOGINNN");
-    setIsAuthenticated(true)
-    stackChange(data)
+    console.log(data, "SignUp");
+    if(data?.status == 200){
+      setIsAuthenticated(true)
+      stackChange(data)
+    }
+
   },
   onError: (data) => {
     console.log(data.message.validationErrors, 'errrrrrrrrrr ');
   },
 });
 
-
-//   const handleOnSignUp = useCallback(() => {
-//     navigate(NavigationRoutes.AUTH_STACK.SIGN_UP);
-//   }, []);
-
-//   const handleForgot = useCallback(() => {
-//     navigate(NavigationRoutes.AUTH_STACK.FORGOT_PASSWORD);
-//   }, []);
-
-//   const handleSigin = useCallback(() => {
-//     navigate(NavigationRoutes.AUTH_STACK.LOGIN);
-//   }, []);
-
-//   const handleNewPassword = useCallback(() => {
-//     navigate(NavigationRoutes.AUTH_STACK.OTP);
-//   }, []);
 
   const {control, handleSubmit} = useForm<LoginFormType>({
     mode: 'all',
@@ -72,7 +59,7 @@ const {mutate: logintMutation} = useMutation(login, {
   });
 //   let fcm = getDevicePayload();
   const handleSubmitForm = async (data: LoginFormType) => {
-    const {email, password} = data;
+    const {email, password, name} = data;
     // let fcm = await getDevicePayload();
 
     // const payload: LoginPayload = {
@@ -85,10 +72,13 @@ const {mutate: logintMutation} = useMutation(login, {
     // console.log(payload, "payloadpayload")
     // loginUser(payload);
     let formdata = new FormData();
+    formdata.append('name', name);
     formdata.append('email', email);
     formdata.append('password', password);
-    formdata.append('SignIn', true);
-
+    formdata.append('Signup', true);
+    formdata.append('token', 1);
+    
+    console.log(formdata, "App")
     logintMutation(formdata)
   };
   return {

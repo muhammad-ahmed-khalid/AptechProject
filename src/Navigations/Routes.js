@@ -7,15 +7,26 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthStack from './AuthStack';
 import AppStack from './AppStack';
 import AppHeader from '../Components/AppHeader/AppHeader';
+import { getItem } from '../Services/storageServices';
+import { useAuth } from '../Services/AuthContext';
 // import AppHeader from './Cmponents/AppHeader/AppHeader';
 
 const Stack = createNativeStackNavigator();
 
 function Routes() {
+  const { isAuthenticated, isLoading } = useAuth();
+  console.log(isAuthenticated, "isAuthenticated")
+  if (isLoading) {
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ 
-        animation:'fade',
+        animation:'slide_from_right',
         headerShown: false,
          header: props => {
           let state = props.navigation.getState();
@@ -30,7 +41,7 @@ function Routes() {
           );
         },
       }}>
-       {false ? <>{AuthStack(Stack)}</> : <>{AppStack(Stack)}</>}
+       {isAuthenticated ? <>{AppStack(Stack)}</>: <>{AuthStack(Stack)}</> }
       </Stack.Navigator>
     </NavigationContainer>
   );

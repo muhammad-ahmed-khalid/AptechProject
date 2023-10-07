@@ -46,7 +46,7 @@ const ViewEvents = ({navigation}) => {
   };
 
   const handlePressEdit = data => {
-    navigation.navigate(NavigationStrings.ADD_EVENTS, {EventData: data});
+    navigation.navigate(NavigationStrings.ADD_EVENTS, {EventData: data, pageTitle: "Update Event"});
   };
   const handlePressDelete = ID => {
     console.log(ID, 'DELTE');

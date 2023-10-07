@@ -16,4 +16,5 @@ export default{
     EVENT_CRUD : "EVENT_CRUD",
     //
     LOGIN: "Login",
+    SIGNUP: "Signup"
 }
