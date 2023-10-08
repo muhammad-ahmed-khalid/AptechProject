@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   Text,
   View,
@@ -9,8 +9,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
-import {useMutation} from '@tanstack/react-query';
-import {createEvent, updateEvent} from '../../../APIServices/App';
+import {useMutation, useQuery} from '@tanstack/react-query';
+import {createEvent, getAllUsers, updateEvent} from '../../../APIServices/App';
 import NavigationStrings from '../../../constants/NavigationStrings';
 import {useNavigation} from '@react-navigation/native';
 import {queryClient} from '../../../constants/common';
@@ -27,44 +27,48 @@ const AddEvents = props => {
   const navigation = useNavigation();
 
 
-  const getAllRelations = [
+  const {data: getAllUsersData, isLoading: getAllUsersLoading} = useQuery(
+    [STORAGE_KEYS.GET_ALL_EVENTS],
+    getAllUsers,
     {
-      id: 0,
-      name: 'Spouse',
+      onSuccess(data) {
+        // console.log(data, "On Success Data")
+      },
+      enabled: true,
+      cacheTime: 0,
     },
-    {
-      id: 1,
-      name: 'Daughter/Son',
-    },
-    {
-      id: 2,
-      name: 'Brother/Sister',
-    },
-    {
-      id: 3,
-      name: 'Relative',
-    },
-    {
-      id: 4,
-      name: 'Friends',
-    },
-    {
-      id: 5,
-      name: 'Others',
-    },
-  ];
-  const [selectedLanguageValue, setSelectedLanguageValue] = React.useState({
-    id: 0,
-    name:  'Spouse',
-  });
+  );
+   
+
+  const [data, setData] = React.useState();
+
+  useEffect(() => {
+     // Add the isSelected key with an initial value of false to each object
+     const updatedData = getAllUsersData?.data?.map((item) => ({
+      ...item,
+      isSelected: false,
+     }));
+    setData(updatedData)
+  },[getAllUsersData])
+
+  const [selectedLanguageValue, setSelectedLanguageValue] = React.useState();
   const [isLanguageModalVisible, setisLanguageModalVisible] =
     React.useState(false);
   const changeLanguageModalVisible = (bool: boolean) => {
     setisLanguageModalVisible(bool);
   };
-  const handleCallbackValue = (data: any) => {
-    setValue('parti', data.name);
-    setSelectedLanguageValue(data);
+  const handleCallbackValue = (dataa: any) => {
+
+    const names = dataa.map(item => {
+     return item.name
+    });
+    const concatenatedNames = names.join(" , ");
+    let payload = {
+      id: 1,
+      name: concatenatedNames,
+    }
+    setSelectedLanguageValue(payload);
+    setValue('parti', concatenatedNames);
   };
 
   const {mutate: updateEventEventMutation} = useMutation(updateEvent, {
@@ -124,6 +128,8 @@ const AddEvents = props => {
       updateEventEventMutation(formdata);
     }
   };
+
+
 
   return (
     <View style={styles.container}>
@@ -194,6 +200,7 @@ const AddEvents = props => {
             required: true,
           }}
           render={({field: {onChange, onBlur, value}}) => (
+           <>
             <TouchableOpacity onPress={() => changeLanguageModalVisible(true)}>
             <TextInput
               style={styles.inputStyle}
@@ -206,8 +213,8 @@ const AddEvents = props => {
               isDisabled={true}
               
             />
-            
         </TouchableOpacity>
+           </>
           )}
           name="parti"
         />
@@ -216,10 +223,6 @@ const AddEvents = props => {
       )}
       </>
      )}
-      
-   
-
-    
       <TouchableOpacity
         onPress={handleSubmit(onSubmit)}
         style={styles.btnWrapper}>
@@ -232,7 +235,8 @@ const AddEvents = props => {
         changeModalVisible={changeLanguageModalVisible}
         setisLanguageModalVisible={setisLanguageModalVisible}
         isLanguageModalVisible={isLanguageModalVisible}
-        data={getAllRelations}
+        data={data}
+        setData={setData}
         selectedLangValue={selectedLanguageValue}
         cbValue={handleCallbackValue}
         title={'Participants'}

@@ -81,3 +81,16 @@ export const createEvent = async (params: any) => {
     });
     return data;
   };
+
+  
+export const getAllUsers = async (params: any) => {
+  console.log(params, "params11111111")
+    const { data } = await apiRequest({
+      url: `${SERVICE_CONFIG_URLS.DRIVER.GET_ALL_USERS}?List=true&token=1`,
+      method: API_CONFIG.GET,
+      params,
+      showLoader: false,
+      showSuccessToast: false
+    });
+    return data;
+  };

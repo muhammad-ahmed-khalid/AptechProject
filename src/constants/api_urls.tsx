@@ -1,5 +1,6 @@
 const authController = 'Authentication';
 const common = 'https://ahmed-khalid.com/controllers/event';
+const commonUser = "https://ahmed-khalid.com/controllers/user";
 const driver = 'driver';
 export const SERVICE_CONFIG_URLS = {
   AUTH: {
@@ -38,6 +39,7 @@ export const SERVICE_CONFIG_URLS = {
     // GET_ALL_EVENTS: `${common}?List=true&token=1`,
     GET_ALL_EVENTS: `${common}`,
     CREATE_EVENT: `${common}`,
+    GET_ALL_USERS : `${commonUser}`
   },
   BOOKING: {
     RIDE_FLOW: `${driver}/booking/`,

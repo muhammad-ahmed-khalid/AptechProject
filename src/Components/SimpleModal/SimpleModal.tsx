@@ -13,6 +13,7 @@ interface ICustomModal {
   selectedLangValue?: any;
   setSelectedLanguageValue?: any;
   handleSelectedLanguage?: any;
+  setData?: any;
 }
 
 interface IRenderItem {
@@ -30,6 +31,7 @@ const SimpleModal = ({
   title = 'SelectLanguage',
   setSelectedLanguageValue,
   handleSelectedLanguage,
+  setData
 }: ICustomModal) => {
   const closeModal = (bool: boolean) => {
     changeModalVisible(bool);
@@ -38,35 +40,40 @@ const SimpleModal = ({
   const handleBackDrop = (bool: boolean) => {
     setisLanguageModalVisible(bool);
   };
-  const [selectedRadio, setSelectedRadio] = useState(selectedLangValue?.id);
-
-  React.useEffect(() => {
-    if(selectedLangValue?.id){
-      setSelectedRadio(selectedLangValue?.id);
-    }
-  }, [selectedLangValue?.id]);
-
-  const handlePressSelection = (item: any) => {
-    cbValue && cbValue(item);
-    handleSelectedLanguage && handleSelectedLanguage(item?.id);
-    setSelectedRadio(item?.id);
-    setSelectedLanguageValue && setSelectedLanguageValue(item?.id);
-    closeModal(false);
+  const handlePressSelection = (itemId) => {
+    const updatedData = data.map((item) => {
+      if (item.PK_ID === itemId) {
+        if (item.isSelected === undefined) {
+          // If 'isSelected' key doesn't exist, add it
+          console.log("ok")
+          return { ...item, isSelected: true };
+        }
+        console.log("not ok")
+        return { ...item, isSelected: !item.isSelected };
+      }
+      return item;
+    });
+    setData(updatedData);
   };
 
+  const handleDonePress = () => {
+    const selectedValues = data.filter((item) => item.isSelected);
+    closeModal(false);
+    cbValue && cbValue(selectedValues);
+  };
   const renderItem = ({item, index}: IRenderItem) => {
     return (
       <View style={styles.main}>
-        <TouchableOpacity onPress={() => handlePressSelection(item)}>
+        <TouchableOpacity onPress={() => handlePressSelection(item?.PK_ID)}>
           <View style={styles.radioWrapper}>
             <View
               style={[
                 styles.radio,
-                selectedRadio == item?.id
+                item.isSelected
                   ? {borderColor: "blue"}
                   : {borderColor: "gray"},
               ]}>
-              {selectedRadio == item?.id ? (
+              {item.isSelected? (
                 <View style={styles.radioBg} />
               ) : null}
             </View>
@@ -101,6 +108,11 @@ const SimpleModal = ({
           keyExtractor={item => item?.id}
         />
         <View style={styles.buttonView}>
+        <TouchableOpacity
+            style={styles.touchableOpacity}
+            onPress={() => handleDonePress()}>
+            <Text style={styles.text}>Done</Text>
+          </TouchableOpacity>
           <TouchableOpacity
             style={styles.touchableOpacity}
             onPress={() => closeModal(false)}>
@@ -136,7 +148,6 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
   },
   title: {
-    // ...Fonts.SemiBold(Fonts.Size.large, Colors.BLACK),
     margin: 12,
     marginHorizontal: 20,
   },

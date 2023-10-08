@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View,Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View,Image, TouchableOpacity , FlatList, Button} from 'react-native'
+import React, {useState} from 'react'
 import CustomLottieComponent from '../../../Components/CustomLottieComponent/CustomLottieComponent'
 import NavigationStrings from '../../../constants/NavigationStrings'
 import { clearAllData, getItem, removeItem, setItem } from '../../../Services/storageServices'
@@ -33,6 +33,7 @@ const Home = ({navigation}) => {
     removeItem("myLogin")
     setIsAuthenticated(false)
   }
+
   return (
     <View style={styles.root}>
         <TouchableOpacity onPress={() => clearAllStores()} style={styles.logoutBtnWrapper}>
@@ -75,5 +76,5 @@ const styles = StyleSheet.create({
     },
     logoutBtnTxt:{
       color: '#fff'
-    }
+    },
 })
