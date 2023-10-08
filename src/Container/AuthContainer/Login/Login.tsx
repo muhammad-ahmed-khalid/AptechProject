@@ -35,6 +35,7 @@ const handleOnSignUp = () => {
               label={AllLabels.EMAIL}
               placeholder={Placeholder.EMAIL_PLACEHOLDER}
               autoCapitalize={'none'}
+              style={{width:"100%"}}
             />
             <InputField
               control={control}
@@ -42,15 +43,15 @@ const handleOnSignUp = () => {
               label={AllLabels.PASSWORD}
               isPassword={true}
               placeholder={Placeholder.PASSWORD_PLACEHOLDER}
+              style={{width:"80%"}}
             />
           </View>
-          <View style={styles.forgotText}>
+          {/* <View style={styles.forgotText}>
             <AuthRouting
               forgotText={ButtonText.FORGOT_PASSWORD_BUTTON}
               onPress={() => console.log("Aoo")}
-            //   onPress={handleForgot}
             />
-          </View>
+          </View> */}
         </View>
         <View
           style={[

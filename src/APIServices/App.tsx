@@ -6,8 +6,9 @@ import { apiRequest } from '../Services/ServiceActions';
 
 
 export const getAllEvents = async (params: any) => {
+  console.log(params, "params11111111")
     const { data } = await apiRequest({
-      url: `${SERVICE_CONFIG_URLS.DRIVER.GET_ALL_EVENTS}`,
+      url: `${SERVICE_CONFIG_URLS.DRIVER.GET_ALL_EVENTS}?List=true&token=1`,
       method: API_CONFIG.GET,
       params,
       showLoader: false,

@@ -18,8 +18,8 @@ const AuthHeader = () => {
       <LogoSvg />
       <View style={styles.textContainer}>
         <Text style={styles.welcomeText}>Welcome to</Text>
-        <Text style={styles.text}>THE 5 SPHERES OF FIT</Text>
-        <Text style={styles.subText}>Your roadmap to personal wellness</Text>
+        <Text style={styles.text}>Event Magagement System</Text>
+        {/* <Text style={styles.subText}>Your roadmap to personal wellness</Text> */}
       </View>
     </View>
   );

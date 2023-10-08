@@ -76,7 +76,7 @@ const {mutate: logintMutation} = useMutation(login, {
     formdata.append('email', email);
     formdata.append('password', password);
     formdata.append('Signup', true);
-    formdata.append('token', 1);
+    formdata.append('token', Math.floor(10000 + Math.random() * 90000));
     
     console.log(formdata, "App")
     logintMutation(formdata)

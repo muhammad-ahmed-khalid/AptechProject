@@ -87,7 +87,6 @@ const AddEvents = props => {
       name: EventData?.name || '',
       startDate: EventData?.startDate || '',
       endDate: EventData?.endDate || '',
-      participants: EventData?.participants || ``,
       parti: selectedLanguageValue?.name || '',
     },
   });
@@ -99,7 +98,6 @@ const AddEvents = props => {
     formdata.append('name', name);
     formdata.append('startDate', startDate);
     formdata.append('endDate', endDate);
-    formdata.append('participants', participants);
     formdata.append('parti', parti);
     if (EventData) {
       formdata.append('Edit', 'true');
@@ -111,9 +109,9 @@ const AddEvents = props => {
     formdata.append('token', 1);
     console.log(formdata, 'Final Form Data');
     if (EventData == null || EventData == undefined) {
-      // createEventMutation(formdata);
+      createEventMutation(formdata);
     } else {
-      // updateEventEventMutation(formdata);
+      updateEventEventMutation(formdata);
     }
   };
 
@@ -177,27 +175,9 @@ const AddEvents = props => {
         <Text style={styles.errorText}>This is required.</Text>
       )}
 
-      <Controller
-        control={control}
-        rules={{
-          required: true,
-        }}
-        render={({field: {onChange, onBlur, value}}) => (
-          <TextInput
-            style={styles.inputStyle}
-            placeholder="Participants"
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-        name="participants"
-      />
-        {errors.participants && (
-        <Text style={styles.errorText}>This is required.</Text>
-      )}
 
-     
+     {!EventData && (
+      <>
         <Controller
           control={control}
           rules={{
@@ -224,6 +204,9 @@ const AddEvents = props => {
       {errors.parti && (
         <Text style={styles.errorText}>This is required.</Text>
       )}
+      </>
+     )}
+      
    
 
     

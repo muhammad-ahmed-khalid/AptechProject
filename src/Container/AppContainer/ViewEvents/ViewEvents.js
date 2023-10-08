@@ -16,6 +16,7 @@ import {
 import NavigationStrings from '../../../constants/NavigationStrings';
 
 const ViewEvents = ({navigation}) => {
+  const id = 1;
   const {data: getAllEventsData, isLoading: getAllEventsDataLoading} = useQuery(
     [STORAGE_KEYS.GET_ALL_EVENTS],
     getAllEvents,

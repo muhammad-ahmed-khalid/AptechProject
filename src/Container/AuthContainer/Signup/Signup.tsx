@@ -32,6 +32,7 @@ const {control, handleSubmit} = useSignupContainer();
               label={AllLabels.NAME}
               placeholder={Placeholder.NAME_PLACEHOLDER}
               autoCapitalize={'none'}
+              style={{width:"100%"}}
             />
             <InputField
               control={control}
@@ -39,6 +40,7 @@ const {control, handleSubmit} = useSignupContainer();
               label={AllLabels.PASSWORD}
               isPassword={true}
               placeholder={Placeholder.PASSWORD_PLACEHOLDER}
+              style={{width:"80%"}}
             />
                  <InputField
               control={control}
@@ -46,6 +48,7 @@ const {control, handleSubmit} = useSignupContainer();
               label={AllLabels.EMAIL}
               placeholder={Placeholder.EMAIL_PLACEHOLDER}
               autoCapitalize={'none'}
+              style={{width:"100%"}}
             />
           </View>
        
