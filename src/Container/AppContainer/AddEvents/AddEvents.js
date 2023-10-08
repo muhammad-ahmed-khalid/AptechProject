@@ -77,6 +77,16 @@ const AddEvents = props => {
     },
   });
 
+  const {mutate: createEventMutation} = useMutation(updateEvent, {
+    onSuccess: data => {
+      queryClient.invalidateQueries([STORAGE_KEYS.GET_ALL_EVENTS]);
+      navigation.navigate(NavigationStrings.HOME);
+    },
+    onError: data => {
+      console.log(data.message.validationErrors, 'errrrrrrrrrr ');
+    },
+  });
+
   const {
     control,
     handleSubmit,
