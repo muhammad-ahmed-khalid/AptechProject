@@ -1,5 +1,3 @@
-// import {_hideSpinner, _showSpinner} from '@Component/Spinner/Spinner';
-// import apiService from '@Service/apiService';
 import Toast from 'react-native-toast-message';
 import ApiServices from './ApiServices';
 
@@ -25,7 +23,6 @@ export async function apiRequest({
   showSuccessToast = false,
   formData = false,
 }: TRequestProps) {
-//   showLoader && _showSpinner();
   
 console.log('API Request:', {
   url,

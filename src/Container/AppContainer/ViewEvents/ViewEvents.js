@@ -14,11 +14,19 @@ import {
   MenuTrigger,
 } from 'react-native-popup-menu';
 import NavigationStrings from '../../../constants/NavigationStrings';
+import { useNavigation } from '@react-navigation/native';
 
-const ViewEvents = ({navigation}) => {
-  const id = 1;
+const ViewEvents = props => {
+  const {route} = props || {};
+  const {params} = route || {};
+  const {userData} = params || {};
+  console.log(userData,'userDatauserDatauserDatauserDatauserData' );
+
+  // Get the navigation object using the useNavigation hook
+  const navigation = useNavigation();
+
   const {data: getAllEventsData, isLoading: getAllEventsDataLoading} = useQuery(
-    [STORAGE_KEYS.GET_ALL_EVENTS],
+    [STORAGE_KEYS.GET_ALL_EVENTS, { token: userData?.data?.PK_ID }],
     getAllEvents,
     {
       onSuccess(data) {
@@ -33,6 +41,7 @@ const ViewEvents = ({navigation}) => {
     onSuccess: (data) => {
       console.log(data, "EVENT DELETED")
       queryClient.invalidateQueries([STORAGE_KEYS.GET_ALL_EVENTS]);
+      navigation.navigate(NavigationStrings.HOME);
     },
     onError: (data) => {
       console.log(data.message.validationErrors, 'errrrrrrrrrr ');
@@ -47,6 +56,7 @@ const ViewEvents = ({navigation}) => {
   };
 
   const handlePressEdit = data => {
+    console.log(data, "datadatadatadatadatadata2222222222222")
     navigation.navigate(NavigationStrings.ADD_EVENTS, {EventData: data, pageTitle: "Update Event"});
   };
   const handlePressDelete = ID => {
@@ -123,13 +133,14 @@ const ViewEvents = ({navigation}) => {
     React.useState(false);
 
   const changeDeleteModalVisible = isLogout => {
-    console.log(isLogout, 'isLogoutisLogoutisLogout');
     if (isLogout == true) {
       setisDeleteAccountVisible(!isDeleteAccountVisible);
     } else {
       setisDeleteAccountVisible(!isDeleteAccountVisible);
     }
   };
+
+  console.log(getAllEventsData, "getAllEventsDatagetAllEventsDatagetAllEventsData")
 
   return (
     <View style={styles.container}>

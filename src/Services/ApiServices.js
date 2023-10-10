@@ -1,16 +1,12 @@
 import Utils, { BUS_EVENTS, LOGOUT_EVENT } from '../Utility/Utils';
-// import { getItem } from './storageService';
 import { ApiResponse, ApisauceConfig, create } from 'apisauce';
-import { queryClient } from '../APIServices/APIServices';
 import { API_CONFIG, CONTENT_TYPE, HTTP_STATUS } from '../constants/api';
-// import { STORAGE_KEYS } from '@Constants/queryKeys';
-// const { EventBusSingleton } = require('light-event-bus');
+
 
 
 export const BASE_URL = API_CONFIG.BASE_URL_DEV;
 
 const apiSauceInstance = create({
-  // baseURL: BASE_URL,
   headers: {
     'Content-Type': CONTENT_TYPE.JSON,
   },

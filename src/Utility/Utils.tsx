@@ -1,10 +1,8 @@
-// import { GET_RECEIPT } from '@Constants/constants';
-// import {Colors} from '@Theme/index';
+
 import debounce from 'lodash.debounce';
 import get from 'lodash.get';
 import {Linking, Platform, Alert} from 'react-native';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
-// import RNFetchBlob from 'rn-fetch-blob';
 class utility {
   isPlatformAndroid = () => Platform.OS === 'android';
   isPlatformIOS = () => Platform.OS === 'ios';
@@ -99,39 +97,7 @@ class utility {
     return formObject;
   };
 
-  // addColorKey = payload => {
-  //   const updatedQualityReport = payload?.map(item => {
-  //     const value = parseFloat(item.value.slice(0, -1)); // Remove the percentage sign and convert to float
-
-  //     if (isNaN(value)) {
-  //       return {
-  //         ...item,
-  //         color: Colors.Colors.DARK_BLACK,
-  //       };
-  //     } else if (value > 70) {
-  //       return {
-  //         ...item,
-  //         color: Colors.Colors.DARK_GREEN,
-  //       };
-  //     } else if (value > 40) {
-  //       return {
-  //         ...item,
-  //         color: 'orange',
-  //       };
-  //     } else {
-  //       return {
-  //         ...item,
-  //         color: Colors.Colors.RED,
-  //       };
-  //     }
-  //     // }
-  //     return item; // Value is not a number, no color key added
-  //   });
-
-  //   return {
-  //     qualityReport: updatedQualityReport,
-  //   };
-  // };
+ 
   showAlert(title = 'Title', desc = 'Description', cbOnAccept = () => {}) {
     Alert.alert(title, desc, [
       {
@@ -146,43 +112,9 @@ class utility {
 
 export default new utility();
 
-
- // For Downloading PDF in Api Response
-//  export const downloadPdf = (pdfUrl: any) => {
-//   const downloadDest = `${RNFetchBlob.fs.dirs.DownloadDir}${GET_RECEIPT.DOWNLOADING_PATH}`;
-//   RNFetchBlob.config({
-//     fileCache: true,
-//     addAndroidDownloads: {
-//       useDownloadManager: true,
-//       notification: true,
-//       title: GET_RECEIPT.STATUS_BAR_TITLE,
-//       description: GET_RECEIPT.STATUS_BAR_DESC,
-//       mime: 'application/pdf',
-//       path: downloadDest,
-//     },
-//   })
-//     .fetch('GET', pdfUrl)
-//     .then(res => {
-//       Toast.show({
-//         type: 'success',
-//         text1: GET_RECEIPT.SUCCESS_TITLE,
-//         text2: GET_RECEIPT.SUCCESS_DESC,
-//       });
-//     })
-//     .catch(error => {
-//       console.error('Error downloading PDF:', error);
-//       Toast.show({
-//         type: 'error',
-//         text1: GET_RECEIPT.ERROR_TITLE,
-//         text2: GET_RECEIPT.ERROR_DESC,
-//       });
-//     });
-// };
-
 export const openExternalLink = (openLink: any) => {
   Linking.openURL(openLink).catch(err => console.error('An error occurred', err))
 }
-
 
 export const openPhoneDialer = (phoneNumber:any) => {
   Linking.openURL(`tel:${phoneNumber}`).catch(err => console.error('An error occurred', err))

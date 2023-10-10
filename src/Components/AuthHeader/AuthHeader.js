@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
-import { LogoSvg } from '../../assets/images';
+import {Platform, StyleSheet, Text, View, Image} from 'react-native';
+import { EMS, LogoSvg } from '../../assets/images';
 
 
 const AuthHeader = () => {
@@ -15,7 +15,12 @@ const AuthHeader = () => {
               : 30,
         },
       ]}>
-      <LogoSvg />
+      {/* <LogoSvg /> */}
+      <Image 
+       style={styles.image}
+       source={EMS}
+       resizeMode="contain"
+      />
       <View style={styles.textContainer}>
         <Text style={styles.welcomeText}>Welcome to</Text>
         <Text style={styles.text}>Event Magagement System</Text>
@@ -47,4 +52,9 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     marginTop: 10,
   },
+  image:{
+    width: 200,
+    height: 200,
+    borderRadius: 100
+  }
 });

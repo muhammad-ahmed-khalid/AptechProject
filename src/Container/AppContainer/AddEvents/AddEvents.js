@@ -20,8 +20,10 @@ import SimpleModal from '../../../Components/SimpleModal/SimpleModal';
 const AddEvents = props => {
   const {route} = props || {};
   const {params} = route || {};
-  const {EventData} = params || {};
-  console.log(EventData, 'Edit Event Data');
+  const {EventData, userData} = params || {};
+  console.log(EventData, 'Edit Event Data', userData);
+
+
 
   // Get the navigation object using the useNavigation hook
   const navigation = useNavigation();
@@ -34,7 +36,7 @@ const AddEvents = props => {
       onSuccess(data) {
         // console.log(data, "On Success Data")
       },
-      enabled: true,
+      enabled: EventData ? false : true,
       cacheTime: 0,
     },
   );
@@ -68,13 +70,13 @@ const AddEvents = props => {
       name: concatenatedNames,
     }
     setSelectedLanguageValue(payload);
-    setValue('parti', concatenatedNames);
+    setValue('participants', concatenatedNames);
   };
 
   const {mutate: updateEventEventMutation} = useMutation(updateEvent, {
     onSuccess: data => {
       queryClient.invalidateQueries([STORAGE_KEYS.GET_ALL_EVENTS]);
-      navigation.navigate(NavigationStrings.VIEW_EVENTS);
+      navigation.navigate(NavigationStrings.HOME);
     },
     onError: data => {
       console.log(data.message.validationErrors, 'errrrrrrrrrr ');
@@ -101,18 +103,18 @@ const AddEvents = props => {
       name: EventData?.name || '',
       startDate: EventData?.startDate || '',
       endDate: EventData?.endDate || '',
-      parti: selectedLanguageValue?.name || '',
+      participants: selectedLanguageValue?.name || '',
     },
   });
 
   const onSubmit = async data => {
-    const {name, startDate, endDate, participants,parti} = data;
+    const {name, startDate, endDate, participants} = data;
     console.log(data, "datadatadata")
     let formdata = new FormData();
     formdata.append('name', name);
     formdata.append('startDate', startDate);
     formdata.append('endDate', endDate);
-    formdata.append('parti', parti);
+    formdata.append('participants', participants);
     if (EventData) {
       formdata.append('Edit', 'true');
       formdata.append('userId', EventData?.userId);
@@ -120,7 +122,7 @@ const AddEvents = props => {
     } else {
       formdata.append('Create', 'true');
     }
-    formdata.append('token', 1);
+    formdata.append('token', userData?.data?.PK_ID ? userData?.data?.PK_ID : EventData?.userId);
     console.log(formdata, 'Final Form Data');
     if (EventData == null || EventData == undefined) {
       createEventMutation(formdata);
@@ -159,7 +161,7 @@ const AddEvents = props => {
         render={({field: {onChange, onBlur, value}}) => (
           <TextInput
             style={styles.inputStyle}
-            placeholder="Start Date"
+            placeholder="2023-11-11"
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
@@ -179,7 +181,7 @@ const AddEvents = props => {
         render={({field: {onChange, onBlur, value}}) => (
           <TextInput
             style={styles.inputStyle}
-            placeholder="End Date"
+            placeholder="2023-12-12"
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
@@ -204,7 +206,7 @@ const AddEvents = props => {
             <TouchableOpacity onPress={() => changeLanguageModalVisible(true)}>
             <TextInput
               style={styles.inputStyle}
-              placeholder="Participants Modal"
+              placeholder="Participants"
               onBlur={onBlur}
               onChangeText={onChange}
               value={selectedLanguageValue?.name}
@@ -216,9 +218,9 @@ const AddEvents = props => {
         </TouchableOpacity>
            </>
           )}
-          name="parti"
+          name="participants"
         />
-      {errors.parti && (
+      {errors.participants && (
         <Text style={styles.errorText}>This is required.</Text>
       )}
       </>

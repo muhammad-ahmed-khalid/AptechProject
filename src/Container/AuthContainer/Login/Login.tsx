@@ -1,24 +1,18 @@
 import * as React from 'react';
 import {Platform, StyleSheet, View} from 'react-native';
-// import AuthAnimatedSheetWrapper from '../../../component/AuthSheetWrapper/AuthAnimatedSheetWrapper';
 import {
   AllLabels,
   ButtonText,
   ConditionText,
   Placeholder,
 } from '../../../constants/common';
-// import AuthBottomHandler from '../Shared/AuthBottomHandler';
-// import AuthRouting from '../Shared/AuthRouting';
 import useLoginContainer from './LoginContainer';
 import AuthAnimatedSheetWrapper from '../../../Components/AuthSheetWrapper/AuthAnimatedSheetWrapper';
 import InputField from '../../../Components/InputField';
 import AuthBottomHandler from '../Shared/AuthBottomHandler';
-import AuthRouting from '../Shared/AuthRouting';
 import { useNavigation } from '@react-navigation/native';
 import NavigationStrings from '../../../constants/NavigationStrings';
 export default function LoginScreen() {
-//   const {control, handleSubmit, handleOnSignUp, handleForgot} =
-//     useLoginContainer();
 const {control, handleSubmit} = useLoginContainer();
 const navigation = useNavigation();
 const handleOnSignUp = () => {
@@ -28,7 +22,7 @@ const handleOnSignUp = () => {
     <AuthAnimatedSheetWrapper>
       <View style={styles.container}>
         <View style={styles.innerContainer}>
-          <View style={styles.inputContainer}>
+          <View >
             <InputField
               control={control}
               name="email"
@@ -46,12 +40,6 @@ const handleOnSignUp = () => {
               style={{width:"80%"}}
             />
           </View>
-          {/* <View style={styles.forgotText}>
-            <AuthRouting
-              forgotText={ButtonText.FORGOT_PASSWORD_BUTTON}
-              onPress={() => console.log("Aoo")}
-            />
-          </View> */}
         </View>
         <View
           style={[
@@ -82,18 +70,8 @@ const styles = StyleSheet.create({
   content: {
     marginHorizontal: 35,
   },
-  inputContainer: {
-    // marginHorizontal: Metrics.baseMargin,
-  },
   forgotText: {
     alignSelf: 'flex-end',
-    // marginRight: Metrics.baseMargin,
-  },
-  textContainer: {
-    // margin: Metrics.baseMargin,
-  },
-  text: {
-    // ...Fonts.Bold(Fonts.Size.small, Colors.LIGHT_GREY),
   },
   authBottomContainer: {
     marginHorizontal: 16,

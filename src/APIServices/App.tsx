@@ -5,12 +5,14 @@ import { SERVICE_CONFIG_URLS } from '../constants/api_urls';
 import { apiRequest } from '../Services/ServiceActions';
 
 
-export const getAllEvents = async (params: any) => {
-  console.log(params, "params11111111")
+export const getAllEvents = async({ queryKey })=> {
+  const [key, params] = queryKey;
+  const { token } = params;
+  console.log(queryKey, "queryKeyqueryKeyqueryKeyqueryKeyqueryKey")
     const { data } = await apiRequest({
-      url: `${SERVICE_CONFIG_URLS.DRIVER.GET_ALL_EVENTS}?List=true&token=1`,
+      url: `${SERVICE_CONFIG_URLS.DRIVER.GET_ALL_EVENTS}?List=true&token=${token}`,
       method: API_CONFIG.GET,
-      params,
+      // params: {}, 
       showLoader: false,
       showSuccessToast: false
     });
@@ -78,6 +80,7 @@ export const createEvent = async (params: any) => {
       },
       formData: true,
       showLoader: false,
+      showToast: true
     });
     return data;
   };
